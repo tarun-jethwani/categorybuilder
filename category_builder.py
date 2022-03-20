@@ -28,16 +28,17 @@ def GetArgumentParser():
   parser.add_argument('seeds', nargs='+', help="Seeds to expand")
   return parser
 
+
 if __name__ == "__main__":
   args = GetArgumentParser().parse_args()
 
-  CB = util.CategoryBuilder()
+  CB = util.CategoryBuilder(data_dir=".")
   
   items = CB.ExpandCategory(seeds=args.seeds,
                             rho=args.rho,
                             n=args.n)
   if args.cutpaste:
-    print ', '.join(item[0] for item in items[:args.expansion_size])
+    print(', '.join(item[0] for item in items[:args.expansion_size]))
   else:
     for idx, item in enumerate(items[:args.expansion_size]):
-      print "[%d] %f\t%s" % (idx, item[1], item[0])
+        print(f"[{idx}]\t{item[1]:5.3f}\t{item[0]}")
